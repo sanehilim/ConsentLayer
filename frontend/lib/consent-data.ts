@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { OG_CHAIN } from "@/lib/chain-config"
 
 export type Permission = "allowed" | "paid" | "denied"
 
@@ -43,11 +44,11 @@ export type License = {
 }
 
 export const OG_NETWORK = {
-  chainId: "0x40da",
-  chainName: "0G-Galileo-Testnet",
-  nativeCurrency: { name: "0G", symbol: "0G", decimals: 18 },
-  rpcUrls: ["https://evmrpc-testnet.0g.ai"],
-  blockExplorerUrls: ["https://chainscan-galileo.0g.ai"],
+  chainId: OG_CHAIN.chainId,
+  chainName: OG_CHAIN.chainName,
+  nativeCurrency: OG_CHAIN.nativeCurrency,
+  rpcUrls: [OG_CHAIN.rpcUrl],
+  blockExplorerUrls: [OG_CHAIN.explorerUrl],
 }
 
 export const PURPOSES = ["Research", "AI training", "Commercial training", "Fine-tuning", "Inference"]
