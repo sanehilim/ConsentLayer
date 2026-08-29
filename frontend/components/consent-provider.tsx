@@ -154,7 +154,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
 
   async function createDataset(input: CreateInput) {
     const now = new Date().toISOString()
-    const hash = await hashValue(`${input.name}:${input.description}:${now}`)
+    const hash = await hashValue(`${input.name}:${input.description}:${input.storageRoot ?? "metadata-only"}:${now}`)
     const id = makeId("cl")
     const dataset: Dataset = { ...input, id, owner: wallet ?? "Local workspace", hash, createdAt: now, updatedAt: now, status: "active", version: 1 }
     if (IS_ONCHAIN_CONFIGURED && wallet && window.ethereum) {
@@ -164,7 +164,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
         await switchToOg(window.ethereum)
         const signer = await provider.getSigner()
         const contract = registryContract(signer)
-        const tx = await contract.createDataset(chainDatasetId(id), asBytes32Hash(hash), ZeroHash, parseOgToWeiHex(input.price), BigInt(input.licenseDurationDays) * 86_400n)
+        const tx = await contract.createDataset(chainDatasetId(id), asBytes32Hash(hash), asBytes32Hash(input.storageRoot ?? ZeroHash), parseOgToWeiHex(input.price), BigInt(input.licenseDurationDays) * 86_400n)
         const receipt = await tx.wait(2)
         dataset.chainDatasetId = chainDatasetId(id)
         dataset.registryTxHash = receipt.hash
