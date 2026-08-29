@@ -1,0 +1,46 @@
+- generic [active] [ref=f10e1]:
+  - alert [ref=f10e87]: License Receipts | ConsentLayer
+  - main [ref=f10e244]:
+    - generic [ref=f10e246]:
+      - link "ConsentLayer" [ref=f10e247] [cursor=pointer]:
+        - /url: /
+      - navigation "Primary navigation" [ref=f10e254]:
+        - link "Dashboard" [ref=f10e255] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Marketplace" [ref=f10e256] [cursor=pointer]:
+          - /url: /marketplace
+        - link "Receipts" [ref=f10e257] [cursor=pointer]:
+          - /url: /receipts
+        - link "Compute" [ref=f10e258] [cursor=pointer]:
+          - /url: /compute
+        - link "Settings" [ref=f10e259] [cursor=pointer]:
+          - /url: /settings
+        - link "0G docs" [ref=f10e260] [cursor=pointer]:
+          - /url: https://docs.0g.ai/
+      - generic [ref=f10e265]:
+        - button "Connect wallet" [ref=f10e266] [cursor=pointer]
+        - link "Create passport" [ref=f10e270] [cursor=pointer]:
+          - /url: /passports/new
+    - generic [ref=f10e274]:
+      - generic [ref=f10e275]:
+        - generic [ref=f10e276]:
+          - generic [ref=f10e277]: Audit trail
+          - heading "Every permission leaves a receipt." [level=1] [ref=f10e278]
+          - paragraph [ref=f10e279]: Review local, wallet-signed, and payment-backed licenses with their purpose and validity.
+        - button "Clear receipts" [ref=f10e281] [cursor=pointer]
+      - generic [ref=f10e283]:
+        - generic [ref=f10e284]: ACTIVE
+        - generic [ref=f10e289]:
+          - strong [ref=f10e290]: QA Speech Corpus
+          - generic [ref=f10e291]: Inference · Local only · issued Aug 29, 2026
+        - generic [ref=f10e292]:
+          - strong [ref=f10e293]: Free
+          - generic [ref=f10e294]: valid until Aug 29, 2027
+        - generic [ref=f10e295]:
+          - button "Copy receipt hash" [ref=f10e296] [cursor=pointer]:
+            - code [ref=f10e297]: "0x7092b15cdf15e879d2542669145f8e10b7a5ca2518b9543f0e0556f8c5de8b51"
+          - button "Download receipt JSON" [ref=f10e301] [cursor=pointer]
+    - status [ref=f10e306]:
+      - generic [ref=f10e307]: ✓
+      - text: Local license receipt created.
+      - button "Dismiss notice" [ref=f10e308] [cursor=pointer]: ×
