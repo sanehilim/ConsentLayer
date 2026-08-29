@@ -2,6 +2,9 @@
 
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react"
 import { Dataset, datasetSchema, DEMO_DATASETS, downloadJson, hashValue, License, licenseSchema, makeId, OG_NETWORK, parseOgToWeiHex, permissionForPurpose, workspaceSchema } from "@/lib/consent-data"
+import { BrowserProvider, Contract, keccak256, toUtf8Bytes, ZeroHash } from "ethers"
+import { IS_ONCHAIN_CONFIGURED, OG_CHAIN, REGISTRY_ADDRESS } from "@/lib/chain-config"
+import { REGISTRY_ABI } from "@/lib/registry-abi"
 
 type Provider = {
   request: (args: { method: string; params?: unknown[] }) => Promise<unknown>
@@ -24,7 +27,7 @@ type ConsentContextValue = {
   showNotice: (text: string, kind?: Notice["kind"]) => void
   createDataset: (input: CreateInput) => Promise<string>
   issueLicense: (dataset: Dataset, purpose: string) => Promise<boolean>
-  revokeDataset: (id: string) => boolean
+  revokeDataset: (id: string) => Promise<boolean>
   refreshTransactions: () => Promise<void>
   exportWorkspace: () => void
   importWorkspace: (data: unknown) => boolean
@@ -40,6 +43,19 @@ function errorMessage(error: unknown, fallback: string) {
   if (error && typeof error === "object" && "message" in error && typeof error.message === "string") return error.message
   return fallback
 }
+
+function browserProvider() {
+  if (!window.ethereum) return null
+  return new BrowserProvider(window.ethereum as never)
+}
+
+function registryContract(provider: BrowserProvider, signer = false) {
+  return new Contract(REGISTRY_ADDRESS, REGISTRY_ABI, signer ? provider.getSigner() : provider)
+}
+
+function chainDatasetId(id: string) { return keccak256(toUtf8Bytes(id)) }
+function chainPurposeId(purpose: string) { return keccak256(toUtf8Bytes(purpose)) }
+function asBytes32Hash(value: string) { return /^0x[0-9a-fA-F]{64}$/.test(value) ? value : ZeroHash }
 
 export function ConsentProvider({ children }: { children: ReactNode }) {
   const [datasets, setDatasets] = useState<Dataset[]>(DEMO_DATASETS)
