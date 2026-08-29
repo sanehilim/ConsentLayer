@@ -187,6 +187,8 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     const price = decision === "paid" ? dataset.price : 0
     let signature: string | undefined
     let paymentTxHash: string | undefined
+    let contractTxHash: string | undefined
+    let chainLicenseId: string | undefined
     let status: License["status"] = "ACTIVE"
     let verification: License["verification"] = "local"
 
@@ -200,10 +202,46 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
         if (!payer) throw new Error("No wallet account is available.")
         await switchToOg(provider)
         setWallet(payer)
-        paymentTxHash = await provider.request({ method: "eth_sendTransaction", params: [{ from: payer, to: dataset.owner, value: parseOgToWeiHex(price) }] }) as string
+        if (dataset.chainDatasetId && IS_ONCHAIN_CONFIGURED) {
+          const browser = browserProvider()
+          if (!browser) throw new Error("Wallet provider unavailable.")
+          const signer = await browser.getSigner()
+          const contract = registryContract(signer)
+          const tx = await contract.issuePaidLicense(dataset.chainDatasetId, chainPurposeId(purpose), payer, { value: parseOgToWeiHex(price) })
+          paymentTxHash = tx.hash
+          contractTxHash = tx.hash
+        } else {
+          paymentTxHash = await provider.request({ method: "eth_sendTransaction", params: [{ from: payer, to: dataset.owner, value: parseOgToWeiHex(price) }] }) as string
+        }
         status = "PENDING"
         verification = "payment"
       } catch (error) { showNotice(errorMessage(error, "Payment was cancelled. No license was issued."), "error"); return false }
+    } else if (wallet && window.ethereum && dataset.chainDatasetId && IS_ONCHAIN_CONFIGURED) {
+      try {
+        const browser = browserProvider()
+        if (!browser) throw new Error("Wallet provider unavailable.")
+        const signer = await browser.getSigner()
+        const contract = registryContract(browser)
+        const nonce = await contract.nonces(dataset.chainDatasetId, wallet) as bigint
+        const chainId = Number.parseInt(OG_CHAIN.chainId, 16)
+        const deadline = Math.floor(Date.now() / 1000) + 900
+        const expiresAt = Math.floor(validUntil.getTime() / 1000)
+        const typedData = {
+          domain: { name: "ConsentLayer License", version: "1", chainId, verifyingContract: REGISTRY_ADDRESS },
+          types: { FreeLicense: [
+            { name: "datasetId", type: "bytes32" }, { name: "purpose", type: "bytes32" }, { name: "policyVersion", type: "uint64" }, { name: "expiresAt", type: "uint64" }, { name: "requester", type: "address" }, { name: "nonce", type: "uint256" }, { name: "deadline", type: "uint256" },
+          ] },
+          value: { datasetId: dataset.chainDatasetId, purpose: chainPurposeId(purpose), policyVersion: dataset.version, expiresAt, requester: wallet, nonce, deadline },
+        }
+        signature = await signer.signTypedData(typedData.domain, typedData.types, typedData.value)
+        const requestContract = registryContract(signer)
+        const tx = await requestContract.issueFreeLicense(dataset.chainDatasetId, chainPurposeId(purpose), wallet, expiresAt, nonce, deadline, signature)
+        const receipt = await tx.wait(2)
+        contractTxHash = receipt.hash
+        const issuedLog = receipt.logs.map((log: unknown) => { try { return requestContract.interface.parseLog(log as never) } catch { return null } }).find((log: { name?: string } | null) => log?.name === "LicenseIssued")
+        chainLicenseId = issuedLog?.args?.licenseId
+        verification = "wallet"
+      } catch (error) { showNotice(errorMessage(error, "Typed license approval was cancelled."), "error"); return false }
     } else if (wallet && window.ethereum) {
       try {
         signature = await window.ethereum.request({ method: "personal_sign", params: [`ConsentLayer license\nDataset: ${dataset.name}\nPurpose: ${purpose}\nPrice: 0 0G\nIssued: ${issuedAt.toISOString()}\nValid until: ${validUntil.toISOString()}`, wallet] }) as string
@@ -212,9 +250,9 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     }
 
     const receiptHash = await hashValue(`${dataset.id}:${purpose}:${issuedAt.toISOString()}:${paymentTxHash ?? signature ?? "local"}`)
-    const license: License = { id: makeId("CL"), datasetId: dataset.id, datasetName: dataset.name, purpose, price, issuedAt: issuedAt.toISOString(), validUntil: validUntil.toISOString(), status, receiptHash, signature, paymentTxHash, verification }
+    const license: License = { id: makeId("CL"), datasetId: dataset.id, datasetName: dataset.name, purpose, price, issuedAt: issuedAt.toISOString(), validUntil: validUntil.toISOString(), status, receiptHash, signature, paymentTxHash, verification, chainLicenseId, contractTxHash }
     setLicenses((current) => [license, ...current])
-    showNotice(paymentTxHash ? "Payment submitted. The receipt will activate after confirmation." : signature ? "License signed and receipt recorded." : "Local license receipt created.", "success")
+    showNotice(paymentTxHash ? "Payment submitted. The receipt will activate after confirmation." : contractTxHash ? "Typed license recorded on 0G Galileo." : signature ? "License signed and receipt recorded." : "Local license receipt created.", "success")
     return true
   }
 
