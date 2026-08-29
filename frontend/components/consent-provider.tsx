@@ -49,8 +49,8 @@ function browserProvider() {
   return new BrowserProvider(window.ethereum as never)
 }
 
-function registryContract(provider: BrowserProvider, signer = false) {
-  return new Contract(REGISTRY_ADDRESS, REGISTRY_ABI, signer ? provider.getSigner() : provider)
+function registryContract(runner: unknown) {
+  return new Contract(REGISTRY_ADDRESS, REGISTRY_ABI, runner as never)
 }
 
 function chainDatasetId(id: string) { return keccak256(toUtf8Bytes(id)) }
