@@ -26,10 +26,5 @@
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
     "typescript": "5.7.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "axios": "1.20.0"
-    }
   }
 }
