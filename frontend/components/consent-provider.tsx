@@ -155,9 +155,26 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   async function createDataset(input: CreateInput) {
     const now = new Date().toISOString()
     const hash = await hashValue(`${input.name}:${input.description}:${now}`)
-    const dataset: Dataset = { ...input, id: makeId("cl"), owner: wallet ?? "Local workspace", hash, createdAt: now, updatedAt: now, status: "active", version: 1 }
+    const id = makeId("cl")
+    const dataset: Dataset = { ...input, id, owner: wallet ?? "Local workspace", hash, createdAt: now, updatedAt: now, status: "active", version: 1 }
+    if (IS_ONCHAIN_CONFIGURED && wallet && window.ethereum) {
+      try {
+        const provider = browserProvider()
+        if (!provider) throw new Error("Wallet provider unavailable.")
+        await switchToOg(window.ethereum)
+        const signer = await provider.getSigner()
+        const contract = registryContract(signer)
+        const tx = await contract.createDataset(chainDatasetId(id), asBytes32Hash(hash), ZeroHash, parseOgToWeiHex(input.price), BigInt(input.licenseDurationDays) * 86_400n)
+        const receipt = await tx.wait(2)
+        dataset.chainDatasetId = chainDatasetId(id)
+        dataset.registryTxHash = receipt.hash
+      } catch (error) {
+        showNotice(errorMessage(error, "Could not register the passport on 0G."), "error")
+        throw error
+      }
+    }
     setDatasets((current) => [dataset, ...current])
-    showNotice(wallet ? "Data Passport created for your connected wallet." : "Passport saved locally in this browser.", "success")
+    showNotice(dataset.registryTxHash ? "Data Passport registered on 0G Galileo." : wallet ? "Data Passport created for your connected wallet." : "Passport saved locally in this browser.", "success")
     return dataset.id
   }
 
