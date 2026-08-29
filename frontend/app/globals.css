@@ -306,6 +306,35 @@ a { color: inherit; text-decoration: none; }
 .danger-icon { color: var(--danger); background: #fae9e7; }
 .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; }
 
+.compute-page { max-width: 1120px; }
+.compute-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, .7fr); gap: 14px; margin-top: 42px; }
+.compute-chat { display: grid; grid-template-rows: auto minmax(300px, 1fr) auto; min-height: 590px; padding: 22px; }
+.compute-toolbar { display: flex; align-items: end; justify-content: space-between; gap: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.compute-title { display: flex; align-items: center; gap: 11px; }
+.compute-title h2 { margin: 5px 0 0; font-size: 19px; letter-spacing: -.04em; }
+.compute-toolbar label { display: grid; gap: 6px; min-width: 165px; color: var(--muted); font-size: 10px; font-weight: 700; }
+.compute-toolbar select { width: 100%; border: 1px solid var(--line); border-radius: 7px; padding: 9px 10px; color: var(--ink); background: var(--paper); font: inherit; font-size: 11px; outline: none; }
+.compute-toolbar select:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(22,143,130,.12); }
+.compute-messages { display: flex; min-height: 300px; flex-direction: column; gap: 13px; overflow: auto; padding: 22px 2px; }
+.compute-empty { display: grid; align-content: center; justify-items: center; gap: 8px; height: 100%; min-height: 260px; padding: 26px; color: var(--muted); text-align: center; }
+.compute-empty svg { color: var(--teal); }
+.compute-empty strong { color: var(--ink); font-size: 14px; }
+.compute-empty span { max-width: 330px; font-size: 11px; line-height: 1.5; }
+.compute-message { max-width: 84%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); }
+.compute-message.user { align-self: end; border-color: #c9dedb; background: var(--teal-soft); }
+.compute-message > span { display: block; margin-bottom: 5px; color: var(--muted); font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+.compute-message p { margin: 0; color: var(--ink); font-size: 12px; line-height: 1.55; white-space: pre-wrap; }
+.compute-form { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 10px; padding-top: 15px; border-top: 1px solid var(--line); }
+.compute-form textarea { width: 100%; resize: vertical; min-height: 46px; border: 1px solid var(--line); border-radius: 7px; padding: 10px 11px; color: var(--ink); background: #fcfdfd; font: inherit; font-size: 12px; outline: none; }
+.compute-form textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(22,143,130,.12); }
+.compute-form .button { min-height: 46px; }
+.compute-side { align-self: start; min-height: 240px; padding: 22px; }
+.compute-side h2 { margin: 7px 0 10px; font-size: 21px; letter-spacing: -.05em; }
+.compute-side p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.compute-license-list { display: grid; gap: 8px; margin-top: 22px; padding-top: 17px; border-top: 1px solid var(--line); }
+.compute-license-list span { display: flex; align-items: center; gap: 7px; color: var(--ink); font-size: 11px; font-weight: 700; }
+.compute-license-list svg { color: var(--teal); }
+
 @media (max-width: 960px) {
   .main-nav { gap: 17px; }
   .wallet-button { display: none; }
@@ -397,6 +426,12 @@ a { color: inherit; text-decoration: none; }
   .settings-actions { width: 100%; align-items: stretch; flex-direction: column; }
   .settings-actions .button { width: 100%; }
   .section-actions { align-items: start; margin-top: 18px; flex-wrap: wrap; }
+  .compute-grid { grid-template-columns: 1fr; margin-top: 32px; }
+  .compute-chat { min-height: 540px; padding: 17px; }
+  .compute-toolbar { align-items: start; flex-direction: column; gap: 15px; }
+  .compute-toolbar label { width: 100%; }
+  .compute-form { grid-template-columns: 1fr; }
+  .compute-form .button { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
