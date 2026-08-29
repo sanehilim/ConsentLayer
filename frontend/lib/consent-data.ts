@@ -171,8 +171,11 @@ export function downloadJson(filename: string, data: unknown) {
   const link = document.createElement("a")
   link.href = url
   link.download = filename
+  link.style.display = "none"
+  document.body.appendChild(link)
   link.click()
-  URL.revokeObjectURL(url)
+  link.remove()
+  window.setTimeout(() => URL.revokeObjectURL(url), 1_000)
 }
 
 export function permissionLabel(permission: Permission) {
