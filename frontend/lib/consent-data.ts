@@ -26,6 +26,10 @@ export type Dataset = {
   status: "active" | "revoked"
   version: number
   licenseDurationDays: number
+  chainDatasetId?: string
+  registryTxHash?: string
+  storageRoot?: string
+  storageTxHash?: string
 }
 
 export type License = {
@@ -41,6 +45,8 @@ export type License = {
   signature?: string
   paymentTxHash?: string
   verification: "local" | "wallet" | "payment"
+  chainLicenseId?: string
+  contractTxHash?: string
 }
 
 export const OG_NETWORK = {
@@ -90,6 +96,10 @@ export const datasetSchema = z.object({
   status: z.enum(["active", "revoked"]).optional(),
   version: z.number().int().positive().optional(),
   licenseDurationDays: z.number().int().min(1).max(3650).optional(),
+  chainDatasetId: z.string().optional(),
+  registryTxHash: z.string().optional(),
+  storageRoot: z.string().optional(),
+  storageTxHash: z.string().optional(),
 }).transform((dataset) => ({
   ...dataset,
   updatedAt: dataset.updatedAt ?? dataset.createdAt,
@@ -111,6 +121,8 @@ export const licenseSchema = z.object({
   signature: z.string().optional(),
   paymentTxHash: z.string().optional(),
   verification: z.enum(["local", "wallet", "payment"]).optional(),
+  chainLicenseId: z.string().optional(),
+  contractTxHash: z.string().optional(),
 }).transform((license) => ({ ...license, verification: license.verification ?? (license.signature ? "wallet" as const : "local" as const) }))
 
 export const workspaceSchema = z.object({
