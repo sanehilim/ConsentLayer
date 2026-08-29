@@ -36,12 +36,12 @@ export function PassportDetailPage() {
 
   async function requestLicense() {
     setIssuing(true)
-    try { if (await issueLicense(dataset, purpose)) router.push("/receipts") }
+    try { if (await issueLicense(dataset!, purpose)) router.push("/receipts") }
     finally { setIssuing(false) }
   }
 
   async function confirmRevocation() {
-    if (await revokeDataset(dataset.id)) setConfirmRevoke(false)
+    if (await revokeDataset(dataset!.id)) setConfirmRevoke(false)
   }
 
   return <main className="app-shell"><AppHeader app /><section className="page-section passport-detail-page">
