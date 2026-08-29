@@ -11,7 +11,7 @@ export async function GET() {
     modes: {
       registry: IS_ONCHAIN_CONFIGURED ? "onchain" : "local-preview",
       compute: process.env.OG_COMPUTE_API_KEY ? "configured" : "unconfigured",
-      persistence: process.env.DATABASE_URL ? "configured" : "browser-local",
+      persistence: "browser-local",
     },
     timestamp: new Date().toISOString(),
   })
