@@ -1,0 +1,105 @@
+- main [ref=f10e2]:
+  - generic [ref=f10e4]:
+    - link "ConsentLayer" [ref=f10e5] [cursor=pointer]:
+      - /url: /
+    - navigation "Primary navigation" [ref=f10e12]:
+      - link "Dashboard" [ref=f10e13] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Marketplace" [ref=f10e14] [cursor=pointer]:
+        - /url: /marketplace
+      - link "Receipts" [ref=f10e15] [cursor=pointer]:
+        - /url: /receipts
+      - link "Compute" [ref=f10e16] [cursor=pointer]:
+        - /url: /compute
+      - link "Settings" [ref=f10e17] [cursor=pointer]:
+        - /url: /settings
+      - link "0G docs" [ref=f10e18] [cursor=pointer]:
+        - /url: https://docs.0g.ai/
+    - generic [ref=f10e23]:
+      - button "Connect wallet" [ref=f10e24] [cursor=pointer]
+      - link "Create passport" [ref=f10e28] [cursor=pointer]:
+        - /url: /passports/new
+  - generic [ref=f10e32]:
+    - generic [ref=f10e33]:
+      - generic [ref=f10e34]: New dataset
+      - heading "Create a Data Passport." [level=1] [ref=f10e35]
+      - paragraph [ref=f10e36]: Make your data understandable before anyone requests it. Set the rules once; every license request will use them.
+      - generic [ref=f10e42]:
+        - strong [ref=f10e43]: Metadata only
+        - generic [ref=f10e44]: This app records permissions and receipts. It does not upload or encrypt dataset files.
+    - generic [ref=f10e45]:
+      - generic [ref=f10e46]:
+        - text: Dataset name
+        - textbox "Dataset name" [active] [ref=f10e47]:
+          - /placeholder: e.g. Coastal Speech v1
+      - generic [ref=f10e48]:
+        - text: Description
+        - textbox "Description" [ref=f10e49]:
+          - /placeholder: A short description requesters can understand.
+      - generic [ref=f10e50]:
+        - generic [ref=f10e51]:
+          - text: Data type
+          - combobox "Data type" [ref=f10e52]:
+            - option "Images" [selected]
+            - option "Audio"
+            - option "Text"
+            - option "Video"
+            - option "Tabular"
+        - generic [ref=f10e53]:
+          - text: Records
+          - spinbutton "Records" [ref=f10e54]
+      - group "AI usage permissions" [ref=f10e55]:
+        - generic [ref=f10e57]:
+          - generic [ref=f10e58]:
+            - text: AI training
+            - combobox "AI training" [ref=f10e59]:
+              - option "Allow · free" [selected]
+              - option "Allow · paid"
+              - option "Deny"
+          - generic [ref=f10e60]:
+            - text: Fine-tuning
+            - combobox "Fine-tuning" [ref=f10e61]:
+              - option "Allow · free" [selected]
+              - option "Allow · paid"
+              - option "Deny"
+          - generic [ref=f10e62]:
+            - text: Inference
+            - combobox "Inference" [ref=f10e63]:
+              - option "Allow · free" [selected]
+              - option "Allow · paid"
+              - option "Deny"
+          - generic [ref=f10e64]:
+            - text: Research
+            - combobox "Research" [ref=f10e65]:
+              - option "Allow · free" [selected]
+              - option "Allow · paid"
+              - option "Deny"
+          - generic [ref=f10e66]:
+            - text: Commercial use
+            - combobox "Commercial use" [ref=f10e67]:
+              - option "Allow · free"
+              - option "Allow · paid" [selected]
+              - option "Deny"
+          - generic [ref=f10e68]:
+            - text: Redistribution
+            - combobox "Redistribution" [ref=f10e69]:
+              - option "Allow · free"
+              - option "Allow · paid"
+              - option "Deny" [selected]
+      - generic [ref=f10e70]:
+        - generic [ref=f10e71]:
+          - text: Paid-use price (0G)
+          - spinbutton "Paid-use price (0G)" [ref=f10e72]
+        - generic [ref=f10e73]:
+          - text: License validity (days)
+          - spinbutton "License validity (days)" [ref=f10e74]: "365"
+      - generic [ref=f10e75]:
+        - checkbox "Mark dataset as private The passport stays visible; file delivery is managed outside this prototype." [checked] [ref=f10e76]
+        - generic [ref=f10e77]:
+          - strong [ref=f10e78]: Mark dataset as private
+          - generic [ref=f10e79]: The passport stays visible; file delivery is managed outside this prototype.
+      - generic [ref=f10e80]:
+        - link "Cancel" [ref=f10e81] [cursor=pointer]:
+          - /url: /dashboard
+        - button "Create passport" [ref=f10e82] [cursor=pointer]
+      - paragraph [ref=f10e86]: Local passports can offer free access only. Connect a wallet to accept paid licenses.
