@@ -37,6 +37,7 @@ contract ConsentLayerRegistry {
     mapping(bytes32 => mapping(address => uint256)) public nonces;
     mapping(bytes32 => bool) public datasetExists;
     mapping(bytes32 => bool) public licenseExists;
+    uint256 private locked = 1;
 
     event DatasetCreated(bytes32 indexed datasetId, address indexed owner, bytes32 metadataHash, bytes32 storageRoot, uint64 policyVersion, uint96 price, uint64 licenseDuration);
     event DatasetUpdated(bytes32 indexed datasetId, bytes32 metadataHash, bytes32 storageRoot, uint64 policyVersion, uint96 price, uint64 licenseDuration);
@@ -51,10 +52,17 @@ contract ConsentLayerRegistry {
         _;
     }
 
+    modifier nonReentrant() {
+        require(locked == 1, "reentrant call");
+        locked = 2;
+        _;
+        locked = 1;
+    }
+
     function createDataset(bytes32 datasetId, bytes32 metadataHash, bytes32 storageRoot, uint96 price, uint64 licenseDuration) external {
         require(!datasetExists[datasetId], "dataset exists");
         require(datasetId != bytes32(0), "invalid dataset id");
-        require(licenseDuration > 0, "invalid duration");
+        require(licenseDuration > 0 && licenseDuration <= 3650 days, "invalid duration");
         datasetExists[datasetId] = true;
         datasets[datasetId] = Dataset(msg.sender, metadataHash, storageRoot, 1, licenseDuration, price, false);
         emit DatasetCreated(datasetId, msg.sender, metadataHash, storageRoot, 1, price, licenseDuration);
@@ -62,7 +70,7 @@ contract ConsentLayerRegistry {
 
     function updateDataset(bytes32 datasetId, bytes32 metadataHash, bytes32 storageRoot, uint96 price, uint64 licenseDuration) external onlyDatasetOwner(datasetId) {
         require(!datasets[datasetId].revoked, "dataset revoked");
-        require(licenseDuration > 0, "invalid duration");
+        require(licenseDuration > 0 && licenseDuration <= 3650 days, "invalid duration");
         Dataset storage dataset = datasets[datasetId];
         dataset.metadataHash = metadataHash;
         dataset.storageRoot = storageRoot;
@@ -87,7 +95,7 @@ contract ConsentLayerRegistry {
         emit OwnershipTransferred(datasetId, previousOwner, newOwner);
     }
 
-    function issuePaidLicense(bytes32 datasetId, bytes32 purpose, address requester) external payable returns (bytes32 licenseId) {
+    function issuePaidLicense(bytes32 datasetId, bytes32 purpose, address requester) external payable nonReentrant returns (bytes32 licenseId) {
         require(datasetExists[datasetId], "dataset missing");
         Dataset memory dataset = datasets[datasetId];
         require(!dataset.revoked, "dataset revoked");
@@ -104,7 +112,7 @@ contract ConsentLayerRegistry {
         emit LicenseIssued(licenseId, datasetId, requester, purpose, dataset.policyVersion, uint96(msg.value), expiresAt);
     }
 
-    function issueFreeLicense(bytes32 datasetId, bytes32 purpose, address requester, uint64 expiresAt, uint256 nonce, uint256 deadline, bytes calldata ownerSignature) external returns (bytes32 licenseId) {
+    function issueFreeLicense(bytes32 datasetId, bytes32 purpose, address requester, uint64 expiresAt, uint256 nonce, uint256 deadline, bytes calldata ownerSignature) external nonReentrant returns (bytes32 licenseId) {
         require(datasetExists[datasetId], "dataset missing");
         Dataset memory dataset = datasets[datasetId];
         require(!dataset.revoked, "dataset revoked");
