@@ -114,6 +114,7 @@ contract ConsentLayerRegistry {
 
     function issueFreeLicense(bytes32 datasetId, bytes32 purpose, address requester, uint64 expiresAt, uint256 nonce, uint256 deadline, bytes calldata ownerSignature) external nonReentrant returns (bytes32 licenseId) {
         require(datasetExists[datasetId], "dataset missing");
+        require(requester != address(0), "invalid requester");
         Dataset memory dataset = datasets[datasetId];
         require(!dataset.revoked, "dataset revoked");
         require(block.timestamp <= deadline && expiresAt > block.timestamp, "expired request");
@@ -149,6 +150,10 @@ contract ConsentLayerRegistry {
         assembly { r := mload(add(signature, 32)) s := mload(add(signature, 64)) v := byte(0, mload(add(signature, 96))) }
         if (v < 27) v += 27;
         require(v == 27 || v == 28, "invalid signature v");
-        return ecrecover(digest, v, r, s);
+        // Reject malleable signatures (EIP-2) and the zero address recovery.
+        require(uint256(s) <= 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0, "high-s signature");
+        address recovered = ecrecover(digest, v, r, s);
+        require(recovered != address(0), "invalid signature");
+        return recovered;
     }
 }
