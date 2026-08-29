@@ -2,7 +2,7 @@
 
 ConsentLayer is a permission and payment workspace for AI datasets. A data owner creates a machine-readable Data Passport, defines which AI uses are free, paid, or denied, and sets the validity period for new licenses. A requester can inspect those terms, sign a free license, or pay the owner in native 0G on the 0G Galileo testnet. Every successful request creates an exportable receipt.
 
-The product is designed as permission infrastructure, not as a file-hosting claim. The current application manages dataset metadata, policies, payment transactions, and receipts. It does not upload, encrypt, deliver, or remotely delete dataset files.
+The product is designed as permission infrastructure. A connected owner can optionally encrypt a dataset in the browser, upload it to 0G Storage, and commit the resulting storage root when publishing the passport onchain. Automated license-bound key delivery is not yet included; owners receive a recovery-key package and must protect it offline.
 
 ## Product promise
 
@@ -11,7 +11,7 @@ ConsentLayer helps both sides prove what was agreed:
 - Data owners publish explicit AI training, fine-tuning, inference, research, commercial-use, and redistribution rules.
 - Requesters can see the applicable policy and price before taking action.
 - Denied purposes cannot issue a license.
-- Paid purposes submit a real native 0G transfer to the passport owner's wallet.
+- Paid purposes settle native 0G atomically through the registry contract when onchain mode is configured.
 - Free purposes can be wallet-signed or saved as a clearly labelled local-only receipt.
 - Revoked passports stop future licenses without rewriting the terms of existing receipts.
 
@@ -22,7 +22,7 @@ ConsentLayer helps both sides prove what was agreed:
 - Detects an injected EVM wallet such as MetaMask or Rabby.
 - Reads the currently authorized account directly from the wallet provider; wallet identity is never trusted from browser storage.
 - Adds or switches to 0G Galileo when the user connects.
-- Uses chain ID `16602` (`0x40da`), native currency `0G`, RPC `https://evmrpc-testnet.0g.ai`, and explorer `https://chainscan-galileo.0g.ai`.
+- Reads chain ID, RPC, explorer, faucet, Storage indexer, and registry address from environment configuration, with Galileo development defaults.
 - Provides a link to the official Galileo faucet.
 
 ### Data Passports
@@ -34,14 +34,15 @@ ConsentLayer helps both sides prove what was agreed:
 - Exports an individual passport as JSON.
 - Lets the local or connected-wallet owner revoke a passport.
 - Excludes revoked passports from the public marketplace while retaining them in the owner's workspace history.
+- Optionally performs client-side AES-256 encryption and a real 0G Storage upload, then records the Storage root and transaction in the passport.
 
 ### Licenses and receipts
 
 - Resolves Research, AI training, Commercial training, Fine-tuning, and Inference requests against the passport policy.
 - Blocks denied requests and all requests against revoked passports.
-- Signs free license terms with `personal_sign` when a wallet is connected.
+- Uses an EIP-712 `FreeLicense` signature and onchain issuance when a deployed registry is configured.
 - Clearly labels unsigned free receipts as `Local only`.
-- Submits paid access with `eth_sendTransaction`, transferring native testnet 0G directly to the passport owner.
+- Uses contract-based atomic paid-license issuance when a deployed registry is configured. The direct-transfer path remains only as an explicit compatibility fallback for legacy local passports.
 - Stores paid receipts as `PENDING`, then reconciles them with `eth_getTransactionReceipt` to mark them `ACTIVE` or `FAILED`.
 - Computes `EXPIRED` from the receipt's validity date instead of displaying every license as active.
 - Links payment-backed receipts to their real ChainScan transaction.
@@ -67,7 +68,9 @@ ConsentLayer helps both sides prove what was agreed:
 | `/passports/new` | Focused passport creation flow |
 | `/passports/[id]` | Passport policy, ownership, export, revocation, and license request flow |
 | `/receipts` | Receipt audit trail, payment reconciliation, explorer links, and exports |
+| `/compute` | License-gated 0G Compute inference workspace |
 | `/settings` | Wallet/network status, backup, restore, and local reset |
+| `/api/health` | Non-secret deployment and integration status |
 
 The application deliberately uses separate pages instead of putting every feature into one dashboard.
 
@@ -82,6 +85,10 @@ frontend/
   components/consent-provider.tsx
                           Validated workspace state, wallet actions, payments, receipts
   lib/consent-data.ts     Domain types, schemas, permission resolver, hashes, exports
+  lib/storage.ts          Browser encryption and 0G Storage upload client
+chain/
+  contracts/              ConsentLayerRegistry Solidity source
+  scripts/                Reproducible compile and Galileo deployment scripts
 ```
 
 State-changing wallet operations are centralized in `ConsentProvider`. Domain rules and runtime validation live in `lib/consent-data.ts`. Pages consume this shared layer instead of duplicating payment or permission logic.
@@ -91,10 +98,10 @@ State-changing wallet operations are centralized in `ConsentProvider`. Domain ru
 There are three receipt verification levels:
 
 1. `local` — browser-local evidence for a free license; no external cryptographic proof.
-2. `wallet` — the user signed the complete free-license terms with their connected wallet.
-3. `payment` — a native 0G payment transaction was submitted and can be verified on ChainScan.
+2. `wallet` — the license was wallet-signed; configured onchain passports use chain-bound EIP-712 terms.
+3. `payment` — a native 0G transaction was submitted and can be verified on ChainScan; configured passports settle through the registry contract.
 
-Passport metadata and complete license terms are currently stored in the local workspace. A payment transaction proves the value transfer, but it does not by itself anchor the full passport or license JSON onchain. Exported JSON files make the current records portable and machine-readable.
+The browser currently caches passport and receipt JSON locally, while configured onchain passports commit policy metadata, storage roots, ownership, version, revocation, and issued licenses to the registry. Exported JSON files keep records portable and machine-readable. A shared event index/database is still required for a globally synchronized catalog.
 
 ## Run locally
 
@@ -128,30 +135,42 @@ pnpm start
 
 Set `NEXT_PUBLIC_APP_URL` to the deployed HTTPS origin so generated social metadata uses the production URL.
 
+Copy `frontend/.env.example` to `.env.local` and configure `NEXT_PUBLIC_CONSENTLAYER_REGISTRY_ADDRESS` after deploying the registry. `OG_COMPUTE_API_KEY` is server-only and must never use the `NEXT_PUBLIC_` prefix.
+
+Compile and deploy the Galileo registry:
+
+```bash
+cd chain
+pnpm install
+pnpm compile
+set OG_DEPLOYER_PRIVATE_KEY=<set this only in your local shell>
+pnpm deploy:galileo
+```
+
 ## Privacy and security boundaries
 
 - Never put secrets, private keys, or raw private datasets into passport metadata.
 - Browser storage is convenient for this testnet prototype but is not a shared database and is cleared when site data is removed. Use workspace backups.
 - Wallet signatures prove control of an account at signing time; they are not legal advice or an automatic guarantee of regulatory compliance.
 - A blockchain receipt cannot force a requester to delete files already received. Revocation blocks new licenses only.
-- Private is currently a metadata classification. File encryption and access delivery must be provided by a future storage integration.
+- Uploaded files are encrypted client-side, but the downloaded recovery key is owner-custodied. A KMS-backed, revocation-aware key-release service is required before accepting sensitive production data.
 - Native 0G testnet tokens have no production monetary value.
 
 ## Production roadmap
 
 The following ideas are intentionally documented as future work and are not presented as shipped functionality:
 
-- Deploy audited 0G smart contracts for passport ownership, policy versions, full license commitments, revocation, and indexed history.
-- Store encrypted datasets and manifests through 0G Storage, with key delivery tied to active licenses.
+- Independently audit the included registry contract before mainnet deployment and add indexed historical policy snapshots.
+- Add KMS-backed license-bound key delivery, verified downloads, replication monitoring, retry/cancellation, and larger resumable Storage uploads.
 - Add stable-token pricing, escrow, refunds, platform fees, subscriptions, pay-per-use accounting, and payment finality handling.
 - Add authenticated shared accounts and a server-side database so marketplace listings work across users and devices.
 - Add requester identities, organization profiles, Agentic ID rules, and reputation.
-- Add 0G Compute-assisted classification, sensitive-data scanning, quality checks, and policy suggestions.
+- Extend the included license-gated 0G Compute inference gateway with TEE verification, provider funding/status, fine-tuning jobs, and compute receipts.
 - Publish a permission-check API and SDK for autonomous agents.
 - Add contract tests, RPC failover, monitoring, rate limiting, CSP/security headers, legal terms, privacy policy, and an external security review before mainnet use.
 
 ## Honest submission summary
 
-This repository is a polished Galileo testnet prototype with a deployable ConsentLayerRegistry contract baseline. Passport creation, policy enforcement, free-license signing, direct native 0G payment, payment confirmation checks, revocation, receipt status, exports, backups, responsive UI, and all listed routes work end to end in the browser. Onchain mode becomes active when `NEXT_PUBLIC_CONSENTLAYER_REGISTRY_ADDRESS` is configured.
+This repository is a tested Galileo application with a deployable ConsentLayerRegistry baseline, optional encrypted 0G Storage uploads, onchain EIP-712/free and atomic paid licensing, and a license-gated 0G Compute gateway. Passport creation, policy enforcement, local fallback receipts, payment reconciliation, revocation, exports, backups, responsive UI, health reporting, and all listed routes work end to end. Onchain mode becomes active when `NEXT_PUBLIC_CONSENTLAYER_REGISTRY_ADDRESS` is configured; Compute activates when the server-only API key is configured.
 
-It is not yet a decentralized file marketplace or a complete production licensing protocol. The registry contract is a testnet baseline, not an audited production contract. Persistent backend indexing, encrypted 0G Storage access, and 0G Compute workflows still require the infrastructure and credentials described in the roadmap above.
+It is not yet safe to call this mainnet-production-ready. The registry is an unaudited testnet baseline, the catalog cache remains browser-local without a configured database/indexer, and encrypted-file key release is owner-managed rather than KMS-backed. Those infrastructure and external-audit boundaries cannot be solved by frontend code alone and remain explicit launch blockers.
