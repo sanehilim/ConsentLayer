@@ -256,13 +256,23 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     return true
   }
 
-  function revokeDataset(id: string) {
+  async function revokeDataset(id: string) {
     const dataset = datasets.find((item) => item.id === id)
     if (!dataset) return false
     const ownsDataset = dataset.owner === "Local workspace" || Boolean(wallet && dataset.owner.toLowerCase() === wallet.toLowerCase())
     if (!ownsDataset) { showNotice("Only the passport owner can revoke it.", "error"); return false }
+    if (dataset.chainDatasetId && IS_ONCHAIN_CONFIGURED) {
+      try {
+        const browser = browserProvider()
+        if (!browser) throw new Error("Wallet provider unavailable.")
+        const signer = await browser.getSigner()
+        const contract = registryContract(signer)
+        const tx = await contract.revokeDataset(dataset.chainDatasetId)
+        await tx.wait(2)
+      } catch (error) { showNotice(errorMessage(error, "Could not revoke the passport on 0G."), "error"); return false }
+    }
     setDatasets((current) => current.map((item) => item.id === id ? { ...item, status: "revoked", version: item.version + 1, updatedAt: new Date().toISOString() } : item))
-    showNotice("Passport revoked. Existing licenses keep their original validity.", "success")
+    showNotice(dataset.chainDatasetId ? "Passport revoked on 0G Galileo." : "Passport revoked locally. Existing licenses keep their original validity.", "success")
     return true
   }
 
