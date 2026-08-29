@@ -1,0 +1,111 @@
+- generic [active] [ref=f10e1]:
+  - alert [ref=f10e87]: QA Speech Corpus
+  - main [ref=f10e89]:
+    - generic [ref=f10e91]:
+      - link "ConsentLayer" [ref=f10e92] [cursor=pointer]:
+        - /url: /
+      - navigation "Primary navigation" [ref=f10e99]:
+        - link "Dashboard" [ref=f10e100] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Marketplace" [ref=f10e101] [cursor=pointer]:
+          - /url: /marketplace
+        - link "Receipts" [ref=f10e102] [cursor=pointer]:
+          - /url: /receipts
+        - link "Compute" [ref=f10e103] [cursor=pointer]:
+          - /url: /compute
+        - link "Settings" [ref=f10e104] [cursor=pointer]:
+          - /url: /settings
+        - link "0G docs" [ref=f10e105] [cursor=pointer]:
+          - /url: https://docs.0g.ai/
+      - generic [ref=f10e110]:
+        - button "Connect wallet" [ref=f10e111] [cursor=pointer]
+        - link "Create passport" [ref=f10e115] [cursor=pointer]:
+          - /url: /passports/new
+    - generic [ref=f10e119]:
+      - link "Marketplace" [ref=f10e120] [cursor=pointer]:
+        - /url: /marketplace
+      - generic [ref=f10e124]:
+        - generic [ref=f10e125]:
+          - generic [ref=f10e126]: Data Passport · v1
+          - heading "QA Speech Corpus" [level=1] [ref=f10e127]
+          - paragraph [ref=f10e128]: A browser tested dataset passport for end to end validation.
+        - generic [ref=f10e129]:
+          - generic [ref=f10e130]: Private metadata
+          - button "Export passport" [ref=f10e131] [cursor=pointer]
+      - generic [ref=f10e136]:
+        - generic [ref=f10e137]:
+          - generic [ref=f10e139]:
+            - generic [ref=f10e140]: Policy status
+            - heading "Active" [level=3] [ref=f10e141]
+          - generic [ref=f10e145]:
+            - generic [ref=f10e146]:
+              - generic [ref=f10e147]: Dataset type
+              - strong [ref=f10e148]: Audio
+            - generic [ref=f10e149]:
+              - generic [ref=f10e150]: Records
+              - strong [ref=f10e151]: 1,200
+            - generic [ref=f10e152]:
+              - generic [ref=f10e153]: Owner
+              - strong [ref=f10e154]: Local workspace
+            - generic [ref=f10e155]:
+              - generic [ref=f10e156]: Registered
+              - strong [ref=f10e157]: Aug 29, 2026
+            - generic [ref=f10e158]:
+              - generic [ref=f10e159]: Provenance hash
+              - strong [ref=f10e160]: "0xb3a1eaeba2cc880d2cf8e42b18ee217a12285ea3577a29beda0f4e1eafa6fc88"
+            - generic [ref=f10e161]:
+              - generic [ref=f10e162]: File handling
+              - strong [ref=f10e163]: External
+          - generic [ref=f10e168]:
+            - generic [ref=f10e169]:
+              - generic [ref=f10e170]: Permission
+              - generic [ref=f10e171]: Decision
+            - generic [ref=f10e172]:
+              - generic [ref=f10e173]: AI training
+              - generic [ref=f10e174]: Allowed
+            - generic [ref=f10e177]:
+              - generic [ref=f10e178]: Fine-tuning
+              - generic [ref=f10e179]: Allowed
+            - generic [ref=f10e182]:
+              - generic [ref=f10e183]: Inference
+              - generic [ref=f10e184]: Allowed
+            - generic [ref=f10e187]:
+              - generic [ref=f10e188]: Research
+              - generic [ref=f10e189]: Allowed
+            - generic [ref=f10e192]:
+              - generic [ref=f10e193]: Commercial use
+              - generic [ref=f10e194]: Allowed
+            - generic [ref=f10e197]:
+              - generic [ref=f10e198]: Redistribution
+              - generic [ref=f10e199]: Denied
+          - generic [ref=f10e203]:
+            - button "Revoke passport" [ref=f10e204] [cursor=pointer]
+            - generic [ref=f10e209]: Existing receipts remain valid until their original expiry.
+        - complementary [ref=f10e210]:
+          - generic [ref=f10e222]: Request access
+          - heading "Issue a license" [level=3] [ref=f10e223]
+          - paragraph [ref=f10e224]: Choose the intended use. The passport decides whether it is free, paid, or blocked.
+          - generic [ref=f10e225]:
+            - text: Intended use
+            - combobox "Intended use" [ref=f10e226]:
+              - option "Research" [selected]
+              - option "AI training"
+              - option "Commercial training"
+              - option "Fine-tuning"
+              - option "Inference"
+          - generic [ref=f10e227]:
+            - generic [ref=f10e228]:
+              - generic [ref=f10e229]: Decision
+              - strong [ref=f10e230]: Allowed
+            - generic [ref=f10e231]:
+              - generic [ref=f10e232]: Price
+              - strong [ref=f10e233]: Free
+            - generic [ref=f10e234]:
+              - generic [ref=f10e235]: Validity
+              - strong [ref=f10e236]: 365 days
+          - button "Issue local receipt" [ref=f10e237] [cursor=pointer]
+          - generic [ref=f10e240]: Without a wallet, this free receipt is verifiable only inside your local workspace.
+    - status [ref=f10e241]:
+      - generic [ref=f10e242]: ✓
+      - text: Passport saved locally in this browser.
+      - button "Dismiss notice" [ref=f10e243] [cursor=pointer]: ×
