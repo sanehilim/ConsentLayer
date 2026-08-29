@@ -1,0 +1,95 @@
+- generic [ref=f27e1]:
+  - main [ref=f27e2]:
+    - generic [ref=f27e4]:
+      - link "ConsentLayer" [ref=f27e5] [cursor=pointer]:
+        - /url: /
+      - button "Toggle navigation" [ref=f27e12] [cursor=pointer]
+    - generic [ref=f27e17]:
+      - generic [ref=f27e18]:
+        - generic [ref=f27e19]: New dataset
+        - heading "Create a Data Passport." [level=1] [ref=f27e20]
+        - paragraph [ref=f27e21]: Make your data understandable before anyone requests it. Set the rules once; every license request will use them.
+        - generic [ref=f27e27]:
+          - strong [ref=f27e28]: Encrypted storage
+          - generic [ref=f27e29]: Optional files are encrypted in your browser and uploaded to 0G Storage. You remain responsible for the downloaded recovery key.
+      - generic [ref=f27e30]:
+        - generic [ref=f27e31]:
+          - text: Dataset name
+          - textbox "Dataset name" [active] [ref=f27e32]:
+            - /placeholder: e.g. Coastal Speech v1
+        - generic [ref=f27e33]:
+          - text: Description
+          - textbox "Description" [ref=f27e34]:
+            - /placeholder: A short description requesters can understand.
+        - generic [ref=f27e35]:
+          - generic [ref=f27e36]:
+            - text: Data type
+            - combobox "Data type" [ref=f27e37]:
+              - option "Images" [selected]
+              - option "Audio"
+              - option "Text"
+              - option "Video"
+              - option "Tabular"
+          - generic [ref=f27e38]:
+            - text: Records
+            - spinbutton "Records" [ref=f27e39]
+        - generic [ref=f27e40]:
+          - strong [ref=f27e46]: Dataset file Optional · max 100 MB
+          - button "Dataset file Optional · max 100 MB Connect a wallet to encrypt and upload through 0G Storage." [ref=f27e47]
+          - generic [ref=f27e48]: Connect a wallet to encrypt and upload through 0G Storage.
+        - group "AI usage permissions" [ref=f27e49]:
+          - generic [ref=f27e51]:
+            - generic [ref=f27e52]:
+              - text: AI training
+              - combobox "AI training" [ref=f27e53]:
+                - option "Allow · free" [selected]
+                - option "Allow · paid"
+                - option "Deny"
+            - generic [ref=f27e54]:
+              - text: Fine-tuning
+              - combobox "Fine-tuning" [ref=f27e55]:
+                - option "Allow · free" [selected]
+                - option "Allow · paid"
+                - option "Deny"
+            - generic [ref=f27e56]:
+              - text: Inference
+              - combobox "Inference" [ref=f27e57]:
+                - option "Allow · free" [selected]
+                - option "Allow · paid"
+                - option "Deny"
+            - generic [ref=f27e58]:
+              - text: Research
+              - combobox "Research" [ref=f27e59]:
+                - option "Allow · free" [selected]
+                - option "Allow · paid"
+                - option "Deny"
+            - generic [ref=f27e60]:
+              - text: Commercial use
+              - combobox "Commercial use" [ref=f27e61]:
+                - option "Allow · free"
+                - option "Allow · paid" [selected]
+                - option "Deny"
+            - generic [ref=f27e62]:
+              - text: Redistribution
+              - combobox "Redistribution" [ref=f27e63]:
+                - option "Allow · free"
+                - option "Allow · paid"
+                - option "Deny" [selected]
+        - generic [ref=f27e64]:
+          - generic [ref=f27e65]:
+            - text: Paid-use price (0G)
+            - spinbutton "Paid-use price (0G)" [ref=f27e66]
+          - generic [ref=f27e67]:
+            - text: License validity (days)
+            - spinbutton "License validity (days)" [ref=f27e68]: "365"
+        - generic [ref=f27e69]:
+          - checkbox "Mark dataset as private The passport metadata remains visible. Encrypted bytes are not readable without the separately held key." [checked] [ref=f27e70]
+          - generic [ref=f27e71]:
+            - strong [ref=f27e72]: Mark dataset as private
+            - generic [ref=f27e73]: The passport metadata remains visible. Encrypted bytes are not readable without the separately held key.
+        - generic [ref=f27e74]:
+          - link "Cancel" [ref=f27e75] [cursor=pointer]:
+            - /url: /dashboard
+          - button "Create passport" [ref=f27e76] [cursor=pointer]
+        - paragraph [ref=f27e80]: Local passports can offer free metadata access only. Connect a wallet for storage, onchain registration, or paid licenses.
+  - alert [ref=f27e81]
