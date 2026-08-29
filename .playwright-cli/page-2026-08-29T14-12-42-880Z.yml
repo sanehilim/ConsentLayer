@@ -1,0 +1,101 @@
+- main [ref=e2]:
+  - generic [ref=e4]:
+    - link "ConsentLayer" [ref=e5] [cursor=pointer]:
+      - /url: /
+    - navigation "Primary navigation" [ref=e12]:
+      - link "Dashboard" [ref=e13] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Marketplace" [ref=e14] [cursor=pointer]:
+        - /url: /marketplace
+      - link "Receipts" [ref=e15] [cursor=pointer]:
+        - /url: /receipts
+      - link "Compute" [ref=e16] [cursor=pointer]:
+        - /url: /compute
+      - link "Settings" [ref=e17] [cursor=pointer]:
+        - /url: /settings
+      - link "0G docs" [ref=e18] [cursor=pointer]:
+        - /url: https://docs.0g.ai/
+    - generic [ref=e23]:
+      - button "Connect wallet" [ref=e24] [cursor=pointer]
+      - link "Create passport" [ref=e28] [cursor=pointer]:
+        - /url: /passports/new
+  - generic [ref=e33]:
+    - generic [ref=e34]:
+      - generic [ref=e35]: Built for 0G Galileo testnet
+      - heading [level=1] [ref=e37]:
+        - text: Permission rails for the
+        - emphasis [ref=e38]: AI data economy.
+      - paragraph [ref=e39]: ConsentLayer turns dataset rights into machine-readable passports. Define exactly what AI can do, attach a price, and leave a portable receipt for every approved use.
+      - generic [ref=e40]:
+        - link "Explore datasets" [ref=e41] [cursor=pointer]:
+          - /url: /marketplace
+        - link "Register your data" [ref=e45] [cursor=pointer]:
+          - /url: /passports/new
+      - generic [ref=e46]: Policy checks are transparent, portable, and owned by the data creator.
+    - generic [ref=e50]:
+      - img "Datasets moving through a permission layer" [ref=e52]:
+        - generic [ref=e97]: REQUESTAI AGENT
+        - generic [ref=e100]: PASSPORTVERIFIED
+      - generic [ref=e107]:
+        - text: Policy hash
+        - strong [ref=e118]: SHA-256
+      - generic [ref=e119]:
+        - text: Paid access
+        - strong [ref=e124]: 0G ready
+  - generic [ref=e126]:
+    - generic [ref=e127]:
+      - generic [ref=e128]: "0"
+      - generic [ref=e129]: active passports
+    - generic [ref=e130]:
+      - generic [ref=e131]: "0"
+      - generic [ref=e132]: receipts issued here
+    - generic [ref=e133]:
+      - generic [ref=e134]: 0 0G
+      - generic [ref=e135]: confirmed volume
+    - generic [ref=e136]:
+      - generic [ref=e137]: "16602"
+      - generic [ref=e138]: 0G Galileo chain
+  - generic [ref=e139]:
+    - generic [ref=e140]:
+      - generic [ref=e141]: How it works
+      - heading "Rights that machines can actually follow." [level=2] [ref=e142]
+      - paragraph [ref=e143]: ConsentLayer keeps the legal intent simple enough for people and precise enough for autonomous agents.
+      - link "Open your workspace" [ref=e144] [cursor=pointer]:
+        - /url: /dashboard
+    - generic [ref=e148]:
+      - generic [ref=e149]:
+        - generic [ref=e150]: "01"
+        - heading "Define" [level=3] [ref=e156]
+        - paragraph [ref=e157]: Choose what training, inference, research, and commercial use mean for your data.
+      - generic [ref=e158]:
+        - generic [ref=e159]: "02"
+        - heading "Verify" [level=3] [ref=e164]
+        - paragraph [ref=e165]: A requester checks the passport before touching a single file.
+      - generic [ref=e166]:
+        - generic [ref=e167]: "03"
+        - heading "Prove" [level=3] [ref=e174]
+        - paragraph [ref=e175]: A receipt captures purpose, price, expiry, and the applicable dataset.
+  - generic [ref=e176]:
+    - generic [ref=e177]:
+      - generic [ref=e178]: Ready when you are
+      - heading "Make your dataset legible to the next generation of AI." [level=2] [ref=e179]
+      - paragraph [ref=e180]: Create a passport, connect your wallet when ready, and start issuing clear permissions on 0G Galileo.
+    - generic [ref=e181]:
+      - link "Create a passport" [ref=e182] [cursor=pointer]:
+        - /url: /passports/new
+      - link "Get testnet tokens" [ref=e186] [cursor=pointer]:
+        - /url: https://faucet.0g.ai
+  - generic [ref=e191]:
+    - generic [ref=e198]:
+      - strong [ref=e199]: ConsentLayer
+      - paragraph [ref=e200]: Programmable permission and payment infrastructure for AI data.
+    - generic [ref=e201]:
+      - link "Dashboard" [ref=e202] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Marketplace" [ref=e203] [cursor=pointer]:
+        - /url: /marketplace
+      - link "0G docs" [ref=e204] [cursor=pointer]:
+        - /url: https://docs.0g.ai/
+      - link "0G on GitHub" [ref=e209] [cursor=pointer]:
+        - /url: https://github.com/0glabs
+    - generic [ref=e213]: © 2026 ConsentLayer · Built for Galileo
