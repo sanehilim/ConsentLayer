@@ -152,6 +152,6 @@ The following ideas are intentionally documented as future work and are not pres
 
 ## Honest submission summary
 
-This repository is a polished, working Galileo testnet prototype. Passport creation, policy enforcement, free-license signing, direct native 0G payment, payment confirmation checks, revocation, receipt status, exports, backups, responsive UI, and all listed routes work end to end in the browser.
+This repository is a polished Galileo testnet prototype with a deployable ConsentLayerRegistry contract baseline. Passport creation, policy enforcement, free-license signing, direct native 0G payment, payment confirmation checks, revocation, receipt status, exports, backups, responsive UI, and all listed routes work end to end in the browser. Onchain mode becomes active when `NEXT_PUBLIC_CONSENTLAYER_REGISTRY_ADDRESS` is configured.
 
-It is not yet a decentralized file marketplace or a fully onchain licensing protocol. Those require deployed contracts, persistent backend indexing, and 0G Storage integration described in the roadmap above.
+It is not yet a decentralized file marketplace or a complete production licensing protocol. The registry contract is a testnet baseline, not an audited production contract. Persistent backend indexing, encrypted 0G Storage access, and 0G Compute workflows still require the infrastructure and credentials described in the roadmap above.
