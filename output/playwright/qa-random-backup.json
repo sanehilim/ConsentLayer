@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "exportedAt": "2026-08-29T15:00:00.000Z",
+  "datasets": [
+    {
+      "id": "cl_import_7731",
+      "name": "QA Cedar Vision 7731",
+      "description": "Synthetic geometric image annotations used only for browser restore and receipt testing.",
+      "type": "Images",
+      "samples": 7731,
+      "owner": "Local workspace",
+      "permissions": {
+        "training": "allowed",
+        "fineTuning": "allowed",
+        "inference": "allowed",
+        "research": "allowed",
+        "commercial": "denied",
+        "redistribution": "denied"
+      },
+      "price": 0,
+      "isPrivate": false,
+      "hash": "0x7731773177317731773177317731773177317731773177317731773177317731",
+      "createdAt": "2026-08-29T14:55:00.000Z",
+      "updatedAt": "2026-08-29T14:55:00.000Z",
+      "status": "active",
+      "version": 1,
+      "licenseDurationDays": 365
+    }
+  ],
+  "licenses": [
+    {
+      "id": "lic_import_7731",
+      "datasetId": "cl_import_7731",
+      "datasetName": "QA Cedar Vision 7731",
+      "purpose": "Inference",
+      "price": 0,
+      "issuedAt": "2026-08-29T14:56:00.000Z",
+      "validUntil": "2027-08-29T14:56:00.000Z",
+      "status": "ACTIVE",
+      "receiptHash": "0x5173517351735173517351735173517351735173517351735173517351735173",
+      "verification": "local"
+    }
+  ]
+}
