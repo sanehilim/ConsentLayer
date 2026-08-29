@@ -16,7 +16,7 @@ export async function uploadEncryptedTo0g(file: File): Promise<StorageUpload & {
   if (treeError) throw new Error(`Could not build a storage Merkle tree: ${treeError}`)
   const indexer = new Indexer(OG_CHAIN.storageIndexerUrl)
   const [tx, uploadError] = await indexer.upload(blob, OG_CHAIN.rpcUrl, signer, { encryption: { type: "aes256", key: keyBytes } })
-  await blob.close()
   if (uploadError) throw new Error(`0G Storage upload failed: ${uploadError}`)
-  return { rootHash: tx.rootHash || tree?.rootHash(), txHash: tx.txHash, key }
+  if ("rootHash" in tx) return { rootHash: tx.rootHash || tree?.rootHash() || "", txHash: tx.txHash, key }
+  return { rootHash: tx.rootHashes[0] || tree?.rootHash() || "", txHash: tx.txHashes[0] || "", key }
 }
