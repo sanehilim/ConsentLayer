@@ -1,0 +1,22 @@
+[   10745ms] [INFO] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools @ http://localhost:3000/_next/static/chunks/0p24_next_dist_0jkbja-._.js:776
+[   10761ms] [TIMESTAMP] Server Requests Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:717
+[   10762ms] [TIMESTAMP] Server Components Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:717
+[   10863ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0p24_next_dist_0jkbja-._.js:776
+[   11077ms] [TIMESTAMP] Blocking Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9076
+[   11078ms] [TIMESTAMP] Transition Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9076
+[   11078ms] [TIMESTAMP] Suspense Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9076
+[   11079ms] [TIMESTAMP] Idle Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9076
+[   11090ms] [TIMESTAMP] Server Requests Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:717
+[   11091ms] [TIMESTAMP] Server Components Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:717
+[   11092ms] [TIMESTAMP] ​Preloads @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11093ms] [TIMESTAMP] ​HTTPAccessErrorFallback @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11093ms] [TIMESTAMP] ​NotFound @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11093ms] [TIMESTAMP] ​RootLayout @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11093ms] [TIMESTAMP] ​Home @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11094ms] [TIMESTAMP] ​Next.MetadataOutlet @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11094ms] [TIMESTAMP] ​NonIndex @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11094ms] [TIMESTAMP] ​Next.Viewport @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11094ms] [TIMESTAMP] ​ViewportWrapper @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11095ms] [TIMESTAMP] ​Next.Metadata @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11096ms] [TIMESTAMP] ​MetadataWrapper @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-server-dom-turbopack_1coes5j._.js:2241
+[   11097ms] [TIMESTAMP] Blocked @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:8887
