@@ -1589,3 +1589,31 @@
 [   63222ms] [TIMESTAMP] ForwardRef @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
 [   63222ms] [TIMESTAMP] AppNotice @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
 [   63222ms] [TIMESTAMP] Remaining Effects @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9835
+[   68224ms] [TIMESTAMP] Blocking Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9076
+[   68226ms] [TIMESTAMP] Transition Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9076
+[   68226ms] [TIMESTAMP] Suspense Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9076
+[   68226ms] [TIMESTAMP] Idle Track @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9076
+[   68261ms] [TIMESTAMP] Render @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9526
+[   68289ms] [TIMESTAMP] Commit @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2722
+[   68293ms] [TIMESTAMP] Waiting for Paint @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9819
+[   68294ms] [TIMESTAMP] ConsentProvider @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68296ms] [TIMESTAMP] ComputePage @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68296ms] [TIMESTAMP] AppHeader @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68297ms] [TIMESTAMP] Layers @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68297ms] [TIMESTAMP] ForwardRef @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68298ms] [TIMESTAMP] ExternalLink @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68299ms] [TIMESTAMP] ForwardRef @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68299ms] [TIMESTAMP] Wallet @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68300ms] [TIMESTAMP] ForwardRef @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68300ms] [TIMESTAMP] Wallet @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68300ms] [TIMESTAMP] ForwardRef @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68301ms] [TIMESTAMP] Plus @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68301ms] [TIMESTAMP] ForwardRef @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68301ms] [TIMESTAMP] Menu @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68301ms] [TIMESTAMP] ForwardRef @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68302ms] [TIMESTAMP] Bot @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68303ms] [TIMESTAMP] ForwardRef @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68303ms] [TIMESTAMP] Send @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68303ms] [TIMESTAMP] ForwardRef @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68304ms] [TIMESTAMP] AppNotice @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:2611
+[   68304ms] [TIMESTAMP] Remaining Effects @ http://localhost:3000/_next/static/chunks/0p24_next_dist_compiled_react-dom_1nu6_ir._.js:9835
